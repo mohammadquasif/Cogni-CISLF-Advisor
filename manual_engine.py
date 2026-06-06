@@ -18,6 +18,7 @@ Thesis:       Quasif, M. (2025). Strategic Leadership for AI-Driven Business
               Executives. DBA Thesis. Kennedy University of Baptist, France.
 """
 
+import copy
 from typing import Dict, List, Tuple
 
 # ---------------------------------------------------------------------------
@@ -49,6 +50,77 @@ def get_maturity_label(score: float) -> str:
         if lo <= score <= hi:
             return label
     return "Strong"
+
+
+# ---------------------------------------------------------------------------
+# Industry Specific Rules
+# ---------------------------------------------------------------------------
+
+INDUSTRIES: List[str] = [
+    "IT services and service desk operations",
+    "Banking and financial services",
+    "Healthcare and hospital administration",
+    "Manufacturing and plant operations",
+    "Retail and e-commerce",
+    "Education and learning services",
+    "Public services and citizen support",
+    "Telecommunications",
+    "Logistics and transport",
+    "Agriculture and rural services",
+    "Human resources and shared services",
+    "Cybersecurity operations"
+]
+
+INDUSTRY_RULES: Dict[str, Dict[str, str]] = {
+    "IT services and service desk operations": {
+        "risk": "Tools are deployed without clear ownership, operating metrics or frontline confidence.",
+        "emphasis": "Alignment, service-value metrics and human review."
+    },
+    "Banking and financial services": {
+        "risk": "Efficiency gains may create customer harm, false positives or weak explainability.",
+        "emphasis": "Traceability, controls, risk ownership and responsible AI."
+    },
+    "Healthcare and hospital administration": {
+        "risk": "Automation may affect safety, privacy and professional accountability.",
+        "emphasis": "Human oversight, risk classification and user training."
+    },
+    "Manufacturing and plant operations": {
+        "risk": "Model outputs are separated from production decisions and maintenance routines.",
+        "emphasis": "Process redesign, data readiness and safety governance."
+    },
+    "Retail and e-commerce": {
+        "risk": "Customer trust is damaged when AI recommendations are inaccurate or opaque.",
+        "emphasis": "Customer-value metrics, feedback loops and escalation."
+    },
+    "Education and learning services": {
+        "risk": "Teacher judgement may be weakened if AI is treated as a replacement.",
+        "emphasis": "Augmentation, staff readiness and ethical boundaries."
+    },
+    "Public services and citizen support": {
+        "risk": "Fairness and accountability risks affect vulnerable users.",
+        "emphasis": "Transparency, appeals and accessible service design."
+    },
+    "Telecommunications": {
+        "risk": "Alert overload and unclear escalation prevent value.",
+        "emphasis": "Operational workflow, ownership and reliability metrics."
+    },
+    "Logistics and transport": {
+        "risk": "AI advice is not embedded into dispatch, asset and customer workflows.",
+        "emphasis": "Cross-functional coordination and measurable delivery outcomes."
+    },
+    "Agriculture and rural services": {
+        "risk": "Low digital confidence and fragmented data limit adoption.",
+        "emphasis": "Local usability, data quality and trust building."
+    },
+    "Human resources and shared services": {
+        "risk": "Bias in AI-driven evaluation, hiring, and performance metrics negatively impacts employee trust.",
+        "emphasis": "Fairness, transparency, human-in-the-loop review, and bias auditing."
+    },
+    "Cybersecurity operations": {
+        "risk": "Over-reliance on automated threat detection leads to alert fatigue and missed novel attack vectors.",
+        "emphasis": "Human-AI collaboration, explainable threat intelligence, and continuous red-teaming."
+    }
+}
 
 
 # ---------------------------------------------------------------------------
@@ -334,6 +406,36 @@ ALL_QUESTION_IDS: List[str] = [
     for q in PILLAR_QUESTIONS[p_num]["questions"]
 ]
 
+
+def get_dynamic_questions(industry: str) -> Dict[int, dict]:
+    """Dynamically tailor the 20 CISLF questions to the selected industry."""
+    questions = copy.deepcopy(PILLAR_QUESTIONS)
+    
+    if industry == "Not specified" or industry not in INDUSTRY_RULES:
+        return questions
+        
+    rules = INDUSTRY_RULES[industry]
+    risk_text = rules["risk"].lower().rstrip('.')
+    emphasis_text = rules["emphasis"].lower().rstrip('.')
+    ind_name = industry.split(" and ")[0]
+    
+    # Pillar 1 (Mindset)
+    questions[1]["questions"][0]["text"] += f" (Specifically addressing the sector risk that {risk_text})"
+    questions[1]["questions"][3]["text"] += f" (Including literacy on {ind_name} specific AI applications)"
+    
+    # Pillar 2 (Alignment)
+    questions[2]["questions"][0]["text"] += f" (Particularly metrics tracking {emphasis_text})"
+    questions[2]["questions"][2]["text"] += f" (Ensuring cross-functional {emphasis_text})"
+    
+    # Pillar 3 (Capability)
+    questions[3]["questions"][1]["text"] += f" (Tailored for {ind_name} operational workflows)"
+    questions[3]["questions"][3]["text"] += f" (Empowering frontline {ind_name} staff)"
+    
+    # Pillar 4 (Governance)
+    questions[4]["questions"][0]["text"] += f" (Addressing {ind_name} specific regulatory risks)"
+    questions[4]["questions"][1]["text"] += f" (To prevent harms such as {risk_text})"
+    
+    return questions
 
 # ---------------------------------------------------------------------------
 # Score Calculation
@@ -1102,126 +1204,142 @@ def build_manual_report(
         L.append(s)
 
     # Header
-    line("════════════════════════════════════════════════")
-    line("CISLF STRATEGIC ANALYSIS REPORT")
-    line("════════════════════════════════════════════════")
-    line(f"Prepared for: {role} | {industry}")
-    line("Framework: CISLF — Comprehensive Intelligent Strategic Leadership Framework")
-    line("Author: Mohammad Quasif, DBA | Kennedy University of Baptist, France")
-    line("Assessment Method: CISLF Rule-Based Framework Questionnaire (20 Questions)")
-    line("════════════════════════════════════════════════")
+    line("## 📄 CISLF STRATEGIC ANALYSIS REPORT")
+    line(f"**Prepared for:** {role} | {industry}")
+    line()
+    line("**Framework:** CISLF — Comprehensive Intelligent Strategic Leadership Framework")
+    line("**Author:** Mohammad Quasif, DBA | Kennedy University of Baptist, France")
+    line("**Assessment Method:** CISLF Rule-Based Framework Questionnaire (20 Questions)")
+    line("---")
     line()
 
     # Executive Summary
-    line("EXECUTIVE SUMMARY")
-    line("─────────────────")
+    line("## EXECUTIVE SUMMARY")
     line(_executive_summary(overall_score, pillar_scores, role, industry))
     line()
 
     # Readiness Score
-    line(f"TRANSFORMATION READINESS SCORE: {overall_score}/10")
+    line(f"### TRANSFORMATION READINESS SCORE: {overall_score}/10")
     line(_readiness_justification(overall_score, pillar_scores))
     line()
+    line("---")
+    line()
+
+    # Industry Specific Analysis
+    if industry in INDUSTRY_RULES:
+        rules = INDUSTRY_RULES[industry]
+        line("## 🏭 INDUSTRY-SPECIFIC ANALYSIS")
+        line(f"**Sector:** {industry}")
+        line()
+        line(f"**TYPICAL LEADERSHIP RISK:**")
+        line(f"- {rules['risk']}")
+        line()
+        line(f"**CISLF EMPHASIS & MITIGATION:**")
+        line(f"- {rules['emphasis']}")
+        line()
+        line("> *This industry-specific lens should be applied when evaluating the pillar scores below.*")
+        line()
 
     # ── Four Pillars ──────────────────────────────────────────────────────
+    icons = {1: "🧠", 2: "🔗", 3: "🏗️", 4: "⚖️"}
     for p_num in range(1, 5):
         score  = pillar_scores[p_num]
         p_data = PILLAR_QUESTIONS[p_num]
+        icon = icons.get(p_num, "")
 
-        line("────────────────────────────────────────────────")
-        line(f"PILLAR {p_num}: {p_data['title'].upper()}")
-        line("────────────────────────────────────────────────")
+        line(f"## {icon} PILLAR {p_num}: {p_data['title'].upper()}")
         line()
-        line("ASSESSMENT:")
+        line("**ASSESSMENT:**")
         line(get(ASSESSMENT_TEXTS, p_num, score))
         line()
-        line("STRENGTHS IDENTIFIED:")
+        line("**✅ STRENGTHS IDENTIFIED:**")
         for s in get(STRENGTH_TEXTS, p_num, score):
-            line(f"• {s}")
+            line(f"- {s}")
         line()
-        line("CRITICAL GAPS:")
+        line("**⚠️ CRITICAL GAPS:**")
         for g in get(GAP_TEXTS, p_num, score):
-            line(f"• {g}")
+            line(f"- {g}")
         line()
-        line("STRATEGIC RECOMMENDATIONS:")
+        line("**💡 STRATEGIC RECOMMENDATIONS:**")
         for r in get(RECOMMENDATION_TEXTS, p_num, score):
-            line(f"• {r}")
+            line(f"- {r}")
         line()
-        line(f"PILLAR SCORE: {score}/10")
+        line(f"**PILLAR SCORE:** {score}/10")
+        line()
+        line("---")
         line()
 
     # ── 90-Day Action Plan ─────────────────────────────────────────────────
-    line("════════════════════════════════════════════════")
-    line("90-DAY ACTION PLAN")
-    line("════════════════════════════════════════════════")
+    line("## 📅 90-DAY ACTION PLAN")
     line()
-    line("MONTH 1 — FOUNDATION (Days 1-30):")
+    line("### 🚀 MONTH 1 — FOUNDATION (Days 1-30):")
     for a in action_plan["month1"]:
-        line(f"• {a}")
+        line(f"- {a}")
     line()
-    line("MONTH 2 — ACCELERATION (Days 31-60):")
+    line("### ⚡ MONTH 2 — ACCELERATION (Days 31-60):")
     for a in action_plan["month2"]:
-        line(f"• {a}")
+        line(f"- {a}")
     line()
-    line("MONTH 3 — INTEGRATION (Days 61-90):")
+    line("### 🔄 MONTH 3 — INTEGRATION (Days 61-90):")
     for a in action_plan["month3"]:
-        line(f"• {a}")
+        line(f"- {a}")
+    line()
+    line("---")
     line()
 
     # ── Risk Assessment ────────────────────────────────────────────────────
-    line("════════════════════════════════════════════════")
-    line("RISK ASSESSMENT")
-    line("════════════════════════════════════════════════")
+    line("## 🛑 RISK ASSESSMENT")
     line()
     for i, risk in enumerate(risks, 1):
-        line(f"RISK {i}: {risk['name']}")
-        line(f"Probability: {risk['probability']} | Impact: {risk['impact']}")
-        line(f"Description: {risk['description']}")
-        line(f"Mitigation: {risk['mitigation']}")
+        line(f"### RISK {i}: {risk['name']}")
+        line(f"- **Probability:** {risk['probability']} | **Impact:** {risk['impact']}")
+        line(f"- **Description:** {risk['description']}")
+        line(f"- **Mitigation:** {risk['mitigation']}")
         line()
+    line("---")
+    line()
 
     # ── Priority Actions ────────────────────────────────────────────────────
-    line("════════════════════════════════════════════════")
-    line("TOP 5 PRIORITY ACTIONS")
-    line("════════════════════════════════════════════════")
+    line("## 🏆 TOP 5 PRIORITY ACTIONS")
     line()
     for i, (action, p_ref, timeline) in enumerate(p_actions, 1):
-        line(f"{i}. {action} | Pillar: {p_ref} | Timeline: {timeline}")
-        line(f"   Prioritised from CISLF pillar score analysis — targeting the highest-leverage gaps first.")
+        line(f"**{i}. {action}** | Pillar {p_ref} | {timeline}")
+        line(f"*Prioritised from CISLF pillar score analysis — targeting the highest-leverage gaps first.*")
         line()
+    line("---")
+    line()
 
     # ── Maturity Scorecard ─────────────────────────────────────────────────
-    line("════════════════════════════════════════════════")
-    line("CISLF MATURITY SCORECARD")
-    line("════════════════════════════════════════════════")
+    line("## 📈 CISLF MATURITY SCORECARD")
     line()
 
     scorecard_rows = [
-        ("Pillar 1 — Leadership Mindset & Vision:        ", 1),
-        ("Pillar 2 — Strategic Business-Tech Alignment:  ", 2),
-        ("Pillar 3 — Organisational Capability & Culture:", 3),
-        ("Pillar 4 — Responsible AI Governance:          ", 4),
+        ("Pillar 1 — Leadership Mindset & Vision", 1),
+        ("Pillar 2 — Strategic Business-Tech Alignment", 2),
+        ("Pillar 3 — Organisational Capability & Culture", 3),
+        ("Pillar 4 — Responsible AI Governance", 4),
     ]
     for label, p_num in scorecard_rows:
         s      = pillar_scores[p_num]
         status = get_maturity_label(s)
-        line(f"{label} {s}/10  |  {status}")
+        line(f"- **{label}:** {s}/10  |  *{status}*")
 
-    line("─────────────────────────────────────────────────────────────────────")
-    line(f"OVERALL CISLF MATURITY SCORE:                   {overall_score}/10  |  {get_maturity_label(overall_score)}")
+    line()
+    line(f"### OVERALL CISLF MATURITY SCORE: {overall_score}/10")
+    line(f"**Status:** {get_maturity_label(overall_score)}")
+    line()
+    line("---")
     line()
 
     # ── Framework Reference ────────────────────────────────────────────────
-    line("════════════════════════════════════════════════")
-    line("FRAMEWORK REFERENCE")
-    line("════════════════════════════════════════════════")
+    line("## 📚 FRAMEWORK REFERENCE")
     line(
-        "This analysis is powered by the CISLF Framework — Quasif, M. (2025). Strategic "
+        "> This analysis is powered by the CISLF Framework — Quasif, M. (2025). Strategic "
         "Leadership for AI-Driven Business Transformation: A Cross-Industry Framework for "
         "Technology Executives. DBA Thesis. Kennedy University of Baptist, France."
     )
-    line("Assessment Method: Rule-Based CISLF Framework Questionnaire (No AI required)")
-    line("════════════════════════════════════════════════")
+    line()
+    line("*Assessment Method: Rule-Based CISLF Framework Questionnaire (No AI required)*")
     line()
     line("END OF REPORT")
 
