@@ -1,0 +1,13 @@
+[server]
+# Allow enough time for LLM API calls (2 minutes)
+maxMessageSize = 200
+headless = true
+port = 8501
+
+[runner]
+# Increase script execution timeout to 5 minutes (300 seconds)
+# This prevents Streamlit from killing the script while waiting for LLM responses
+fastReruns = false
+
+[browser]
+gatherUsageStats = false
