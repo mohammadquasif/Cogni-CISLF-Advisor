@@ -740,15 +740,15 @@ def render_sidebar():
     # ── Page Navigation ───────────────────────────────────────────────────
     st.sidebar.markdown("<p style='font-size:0.7rem;color:#85D2B2;font-weight:700;margin-bottom:0.25rem;letter-spacing:0.5px;'>NAVIGATION</p>", unsafe_allow_html=True)
     options = [
-        "📋 Manual Assessment",
         "📊 Dashboard",
         "🤖 AI Consultation",
+        "📋 Manual Assessment",
         "⚙️ Setup & Settings",
         "ℹ️ About & Reference"
     ]
     current_page = st.session_state.get("page", "📊 Dashboard")
     if current_page not in options:
-        current_page = options[0]
+        current_page = "📊 Dashboard"
 
     # Decouple key from session_state to allow programmatic redirection without StreamlitAPIException
     selected_page = st.sidebar.radio(
