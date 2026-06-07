@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://cogni-cislf-advisor.streamlit.app/" target="_blank">
-    <img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" alt="Streamlit App"/>
+    <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit App"/>
   </a>
 </p>
 
