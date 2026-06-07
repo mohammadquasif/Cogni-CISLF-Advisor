@@ -2965,6 +2965,7 @@ To cite this research or application in academic papers, business reviews, or st
     *   PhD Candidate (CS) — SGTU (Forthcoming)
 *   **Thesis Title:** *Strategic Leadership for AI-Driven Business Transformation: A Cross-Industry Framework for Technology Executives*
 *   **Supervisor:** Prof. Dr. Joseph Kwaku Mihaye
+*   **ORCID:** [0009-0003-9455-4804](https://orcid.org/0009-0003-9455-4804)
 *   **Research Scope:** Evaluates digital maturity, executive sponsorship, cross-functional business-technology alignment, and ethical AI deployment in global enterprises, service delivery hubs, and Indian IT services.
 """)
         

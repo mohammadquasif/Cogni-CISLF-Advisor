@@ -233,6 +233,7 @@ Global Knowledge Hub, Kennedy University. Supervisor: Prof. Dr. Joseph Kwaku Mih
 *   **Thesis Title:** *Strategic Leadership for AI-Driven Business Transformation: A Cross-Industry Framework for Technology Executives*
 *   **Supervisor:** Prof. Dr. Joseph Kwaku Mihaye
 *   **GitHub:** [@mohammadquasif](https://github.com/mohammadquasif)
+*   **ORCID:** [0009-0003-9455-4804](https://orcid.org/0009-0003-9455-4804)
 
 ---
 
