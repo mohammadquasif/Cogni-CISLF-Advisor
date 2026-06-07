@@ -2982,7 +2982,7 @@ To cite this research or application in academic papers, business reviews, or st
 **Structured Metadata Summary:**
 ```json
 {
-  "framework": "CISLF (Comprehensive Intelligent Strategic Leadership Framework)",
+  "framework": "Comprehensive Intelligent Strategic Leadership Framework (CISLF)",
   "author": "Mohammad Quasif",
   "degree": "Doctor of Business Administration in Artificial Intelligence (DBA in AI)",
   "registration_no": "KUSLS20220143572",

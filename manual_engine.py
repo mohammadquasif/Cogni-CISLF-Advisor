@@ -10,7 +10,7 @@ No AI API is required. The framework is applied through:
   3. Template-based text generation matched to score bands
   4. Structured report assembly in the canonical CISLF format
 
-CISLF Framework — Comprehensive Intelligent Strategic Leadership Framework
+CISLF Framework — Comprehensive Intelligent Strategic Leadership Framework (CISLF)
 Developed by: Mohammad Quasif, DBA Candidate
 Institution:  Kennedy University of Baptist, France
 Thesis:       Quasif, M. (2025). Strategic Leadership for AI-Driven Business
@@ -2434,7 +2434,7 @@ def build_manual_report(
     line("## 📄 CISLF STRATEGIC ANALYSIS REPORT")
     line(f"**Prepared for:** {role} | {industry}")
     line()
-    line("**Framework:** CISLF — Comprehensive Intelligent Strategic Leadership Framework")
+    line("**Framework:** Comprehensive Intelligent Strategic Leadership Framework (CISLF)")
     line("**Author:** Mohammad Quasif, DBA | Kennedy University of Baptist, France")
     line("**Assessment Method:** CISLF Rule-Based Framework Questionnaire (20 Questions)")
     line("---")

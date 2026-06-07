@@ -133,7 +133,7 @@ def _draw_cover_page(doc: fitz.Document, role: str, industry: str,
         ("Prepared For",  f"{role}"),
         ("Industry",      f"{industry}"),
         ("Date",          datetime.now().strftime("%B %d, %Y")),
-        ("Framework",     "CISLF — Comprehensive Intelligent Strategic Leadership Framework"),
+        ("Framework",     "Comprehensive Intelligent Strategic Leadership Framework (CISLF)"),
     ]
     for label, value in details:
         page.insert_text(fitz.Point(50, y), f"{label}:",

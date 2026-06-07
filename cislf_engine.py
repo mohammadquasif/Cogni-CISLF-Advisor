@@ -6,7 +6,7 @@ Responsible for:
   2. Validating that the LLM response contains all mandatory CISLF sections.
   3. Parsing section content for structured rendering in the UI.
 
-CISLF Framework — Comprehensive Intelligent Strategic Leadership Framework
+CISLF Framework — Comprehensive Intelligent Strategic Leadership Framework (CISLF)
 Developed by: Mohammad Quasif, DBA in AI Candidate
 Institution:  Global Knowledge Hub, Kennedy University
 Thesis:       Quasif, M. (2026). Strategic Leadership for AI-Driven Business
@@ -115,7 +115,7 @@ You MUST anchor every dimension of the rewritten scenario deeply inside this sec
 Do NOT use generic language. Every sentence must feel like it was written by a practitioner inside {industry}.
 """
 
-    return f"""You are the **Cogni CISLF Virtual Intent Agent** — the first stage of a two-stage AI consulting pipeline built on the CISLF Framework (Comprehensive Intelligent Strategic Leadership Framework) by Mohammad Quasif, DBA in AI Candidate, Global Knowledge Hub, Kennedy University (Supervisor: Prof. Dr. Joseph Kwaku Mihaye, Research Tenure: 2024-2026).
+    return f"""You are the **Cogni CISLF Virtual Intent Agent** — the first stage of a two-stage AI consulting pipeline built on the Comprehensive Intelligent Strategic Leadership Framework (CISLF) by Mohammad Quasif, DBA in AI Candidate, Global Knowledge Hub, Kennedy University (Supervisor: Prof. Dr. Joseph Kwaku Mihaye, Research Tenure: 2024-2026).
 
 Your single purpose: receive a raw, brief, possibly vague prompt from an executive and transform it into a rich, deeply researched, CISLF-aligned strategic assessment scenario that will be fed to a senior AI consultant agent in Stage 2.
 
@@ -197,7 +197,7 @@ def build_combined_single_call_prompts(
         if industry.lower() != "not specified" else ""
     )
 
-    system_prompt = f"""You are Cogni CISLF Advisor — a senior AI strategy consultant powered by the CISLF Framework (Comprehensive Intelligent Strategic Leadership Framework) by Mohammad Quasif, DBA in AI Candidate, Global Knowledge Hub, Kennedy University (Supervisor: Prof. Dr. Joseph Kwaku Mihaye). Built from 2 years of doctoral research (2024-2026) into AI transformation failures across 12 industries.
+    system_prompt = f"""You are Cogni CISLF Advisor — a senior AI strategy consultant powered by the Comprehensive Intelligent Strategic Leadership Framework (CISLF) by Mohammad Quasif, DBA in AI Candidate, Global Knowledge Hub, Kennedy University (Supervisor: Prof. Dr. Joseph Kwaku Mihaye). Built from 2 years of doctoral research (2024-2026) into AI transformation failures across 12 industries.
 
 PIPELINE: You operate a two-stage process internally in a SINGLE response:
 STAGE 1 (silent — do NOT output): Decode the executive's raw input. Infer: organisational size, tech stack, past failed AI initiatives, board dynamics, AI maturity. Map specific tensions to all 4 CISLF pillars. Do this silently — it only informs your report.
@@ -227,7 +227,7 @@ OUTPUT FORMAT — produce exactly these sections in this order, using the exact 
 🧠 CISLF STRATEGIC ANALYSIS REPORT
 ════════════════════════════════════════════════
 Prepared for: {role} | {industry}
-Framework: CISLF — Comprehensive Intelligent Strategic Leadership Framework
+Framework: Comprehensive Intelligent Strategic Leadership Framework (CISLF)
 Research Author: Mohammad Quasif, DBA in AI Candidate | Global Knowledge Hub, Kennedy University | Supervisor: Prof. Dr. Joseph Kwaku Mihaye | Research Tenure: 2024-2026 (Completion: July 2026)
 ════════════════════════════════════════════════
 
@@ -335,7 +335,7 @@ def build_system_prompt() -> str:
     Build the system-level prompt that defines the LLM's persona, role,
     and the exact output format required for the CISLF analysis.
     """
-    return """You are **Cogni CISLF Advisor** — a senior AI strategy consultant and the Stage 2 analytical engine of a two-stage consulting pipeline grounded in the CISLF Framework (Comprehensive Intelligent Strategic Leadership Framework), developed by Mohammad Quasif, DBA in AI Candidate, Global Knowledge Hub, Kennedy University (Supervisor: Prof. Dr. Joseph Kwaku Mihaye), through two years of doctoral research (2024-2026) into AI transformation failures across industries.
+    return """You are **Cogni CISLF Advisor** — a senior AI strategy consultant and the Stage 2 analytical engine of a two-stage consulting pipeline grounded in the Comprehensive Intelligent Strategic Leadership Framework (CISLF), developed by Mohammad Quasif, DBA in AI Candidate, Global Knowledge Hub, Kennedy University (Supervisor: Prof. Dr. Joseph Kwaku Mihaye), through two years of doctoral research (2024-2026) into AI transformation failures across industries.
 
 You will receive a richly detailed, CISLF-mapped executive briefing that was rewritten by the Stage 1 Virtual Intent Agent from the executive's raw input. Your role is to apply the CISLF Framework with rigorous analytical depth to produce a consulting-grade strategic report.
 
@@ -378,7 +378,7 @@ Produce the report in EXACTLY this structure. Do not omit, rename, or reorder an
 🧠 CISLF STRATEGIC ANALYSIS REPORT
 ════════════════════════════════════════════════
 Prepared for: {ROLE} | {INDUSTRY}
-Framework: CISLF — Comprehensive Intelligent Strategic Leadership Framework
+Framework: Comprehensive Intelligent Strategic Leadership Framework (CISLF)
 Research Author: Mohammad Quasif, DBA in AI Candidate | Global Knowledge Hub, Kennedy University | Supervisor: Prof. Dr. Joseph Kwaku Mihaye | Research Tenure: 2024-2026 (Completion: July 2026)
 ════════════════════════════════════════════════
 
