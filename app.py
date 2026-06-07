@@ -132,37 +132,39 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 [data-testid="stSidebar"] .stSelectbox > div > div { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
 
 /* Custom Sidebar Navigation Menu styling (converting radios to professional buttons) */
-div[data-testid="stSidebar"] [data-testid="stRadio"] > div,
-div[data-testid="stSidebar"] .stRadio > div,
-div[data-testid="stSidebar"] [role="radiogroup"] {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    padding: 0.5rem 0;
+[data-testid="stSidebar"] [data-testid="stRadio"] > div,
+[data-testid="stSidebar"] .stRadio > div,
+[data-testid="stSidebar"] [role="radiogroup"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 0 !important;
 }
-div[data-testid="stSidebar"] [data-testid="stRadio"] label,
-div[data-testid="stSidebar"] .stRadio label,
-div[data-testid="stSidebar"] [role="radiogroup"] label {
-    background-color: transparent !important;
+[data-testid="stSidebar"] [data-testid="stRadio"] label,
+[data-testid="stSidebar"] .stRadio label,
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
     border-radius: 8px !important;
-    padding: 0.65rem 0.9rem !important;
-    margin-bottom: 0.15rem !important;
+    padding: 0.55rem 0.75rem !important;
+    margin-bottom: 0.1rem !important;
     display: flex !important;
     align-items: center !important;
     cursor: pointer !important;
-    transition: all 0.25s ease !important;
+    transition: all 0.2s ease-in-out !important;
     width: 100% !important;
     color: #D8F3DC !important;
-    border-left: 3px solid transparent !important;
 }
 /* Hide the default radio circle inputs and their wrappers */
-div[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
-div[data-testid="stSidebar"] .stRadio label > div:first-child,
-div[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child,
-div[data-testid="stSidebar"] [data-testid="stRadio"] label div[role="presentation"],
-div[data-testid="stSidebar"] .stRadio label div[role="presentation"],
-div[data-testid="stSidebar"] [data-testid="stRadio"] label svg,
-div[data-testid="stSidebar"] .stRadio label svg {
+[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
+[data-testid="stSidebar"] .stRadio label > div:first-child,
+[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child,
+[data-testid="stSidebar"] [data-testid="stRadio"] label div[role="presentation"],
+[data-testid="stSidebar"] .stRadio label div[role="presentation"],
+[data-testid="stSidebar"] [data-testid="stRadio"] label svg,
+[data-testid="stSidebar"] .stRadio label svg,
+[data-testid="stSidebar"] [data-testid="stRadio"] label input[type="radio"],
+[data-testid="stSidebar"] .stRadio label input[type="radio"] {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -170,28 +172,37 @@ div[data-testid="stSidebar"] .stRadio label svg {
     visibility: hidden !important;
 }
 /* Ensure the text is vertically aligned and margins are cleared */
-div[data-testid="stSidebar"] [data-testid="stRadio"] label [data-testid="stMarkdownContainer"] p,
-div[data-testid="stSidebar"] .stRadio label [data-testid="stMarkdownContainer"] p {
+[data-testid="stSidebar"] [data-testid="stRadio"] label [data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] .stRadio label [data-testid="stMarkdownContainer"] p {
     margin: 0 !important;
-    font-size: 0.95rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
     line-height: 1.2 !important;
+    color: #D8F3DC !important;
 }
 /* Selected state for sidebar menu buttons */
-div[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[type="radio"]:checked),
-div[data-testid="stSidebar"] .stRadio label:has(input[type="radio"]:checked),
-div[data-testid="stSidebar"] [role="radiogroup"] label:has(input[type="radio"]:checked) {
-    background: rgba(255, 255, 255, 0.12) !important;
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[type="radio"]:checked),
+[data-testid="stSidebar"] .stRadio label:has(input[type="radio"]:checked),
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input[type="radio"]:checked),
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has([data-checked="true"]),
+[data-testid="stSidebar"] .stRadio label:has([data-checked="true"]),
+[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"],
+[data-testid="stSidebar"] .stRadio label[data-checked="true"] {
+    background: linear-gradient(90deg, #1B4332 0%, #2D6A4F 100%) !important;
+    border: 1px solid rgba(82, 183, 136, 0.4) !important;
     color: #FFFFFF !important;
-    border-left: 3.5px solid #52B788 !important;
-    font-weight: 700 !important;
-    box-shadow: inset 1px 0 0 rgba(255,255,255,0.05);
-    border-radius: 0 8px 8px 0 !important;
-    padding-left: 0.75rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
-div[data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
-div[data-testid="stSidebar"] .stRadio label:hover,
-div[data-testid="stSidebar"] [role="radiogroup"] label:hover {
-    background: rgba(255, 255, 255, 0.06) !important;
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[type="radio"]:checked) [data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] .stRadio label:has(input[type="radio"]:checked) [data-testid="stMarkdownContainer"] p {
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+}
+[data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
+[data-testid="stSidebar"] .stRadio label:hover,
+[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
     color: #FFFFFF !important;
 }
 
