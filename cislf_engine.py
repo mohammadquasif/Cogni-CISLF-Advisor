@@ -904,11 +904,11 @@ def parse_cislf_report(report_text: str) -> dict:
         parsed["pillars"][idx] = p_dict
 
     # 3. 90-Day Action Plan — matches both "90-DAY ACTION PLAN" and "90-DAY TRANSFORMATION ACTION PLAN"
-    plan_raw = extract_between(report_text, "90-DAY", "RISK ASSESSMENT MATRIX")
+    plan_raw = extract_between(report_text, "90-DAY", "RISK ASSESSMENT")
     if plan_raw:
         m1_raw = extract_between(plan_raw, "MONTH 1", "MONTH 2")
         m2_raw = extract_between(plan_raw, "MONTH 2", "MONTH 3")
-        m3_raw = extract_between(plan_raw, "MONTH 3", "RISK ASSESSMENT MATRIX")
+        m3_raw = extract_between(plan_raw, "MONTH 3", "RISK ASSESSMENT")
         if not m3_raw:
             m3_raw = plan_raw[plan_raw.upper().find("MONTH 3"):] if plan_raw.upper().find("MONTH 3") != -1 else ""
             
@@ -927,7 +927,7 @@ def parse_cislf_report(report_text: str) -> dict:
         parsed["action_plan"]["month3"] = clean_bullets(m3_raw)
 
     # 4. Risk Assessment
-    risks_raw = extract_between(report_text, "RISK ASSESSMENT MATRIX", "TOP 5 PRIORITY ACTIONS")
+    risks_raw = extract_between(report_text, "RISK ASSESSMENT", "TOP 5 PRIORITY ACTIONS")
     if risks_raw:
         risk_blocks = re.split(r"RISK\s*\d+\s*:", risks_raw, flags=re.IGNORECASE)
         for r_block in risk_blocks[1:]:
