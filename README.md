@@ -8,6 +8,12 @@
   <a href="https://cogni-cislf-advisor.streamlit.app/" target="_blank">
     <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit App"/>
   </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License"/>
+  </a>
+  <a href="https://github.com/mohammadquasif/Cogni-CISLF-Advisor/stargazers">
+    <img src="https://img.shields.io/github/stars/mohammadquasif/Cogni-CISLF-Advisor?style=for-the-badge" alt="GitHub Stars"/>
+  </a>
 </p>
 
 > **An Executive-Grade AI Strategic Leadership Consultant & Cross-Industry Framework**  
@@ -213,6 +219,20 @@ Quasif, M. (2026). Strategic Leadership for AI-Driven Business Transformation:
 A Cross-Industry Framework for Technology Executives. DBA in AI Thesis (Research Tenure: 2024-2026). 
 Global Knowledge Hub, Kennedy University. Supervisor: Prof. Dr. Joseph Kwaku Mihaye. Graduation: July 2026.
 ```
+
+---
+
+## 👤 Academic Author Profile
+
+*   **Author:** **Mohammad Quasif**
+*   **Role:** Lead Consultant JL6 — Infosys Limited
+*   **Academic Profile:**
+    *   Doctor of Business Administration in Artificial Intelligence (DBA in AI) Candidate — Kennedy University (Global Knowledge Hub, Registration No: KUSLS20220143572)
+    *   Research Tenure: 2024 - 2026 (Thesis Completion: July 2026)
+    *   PhD Candidate (CS) — SGTU (Forthcoming)
+*   **Thesis Title:** *Strategic Leadership for AI-Driven Business Transformation: A Cross-Industry Framework for Technology Executives*
+*   **Supervisor:** Prof. Dr. Joseph Kwaku Mihaye
+*   **GitHub:** [@mohammadquasif](https://github.com/mohammadquasif)
 
 ---
 

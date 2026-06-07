@@ -2957,13 +2957,13 @@ To cite this research or application in academic papers, business reviews, or st
     with col2:
         st.markdown("""
 ### 👤 Academic Author Profile
-*   **Author:** Mohammad Quasif
-*   **Registration No:** KUSLS20220143572
-*   **Degree:** Doctor of Business Administration in Artificial Intelligence (DBA in AI)
-*   **Research Tenure:** 2024 - 2026 (Thesis Completion: July 2026)
+*   **Author:** **Mohammad Quasif**
+*   **Role:** Lead Consultant JL6 — Infosys Limited
+*   **Academic Profile:**
+    *   DBA in AI Candidate — Kennedy University (Global Knowledge Hub, Registration No: KUSLS20220143572)
+    *   Research Tenure: 2024 - 2026 (Thesis Completion: July 2026)
+    *   PhD Candidate (CS) — SGTU (Forthcoming)
 *   **Thesis Title:** *Strategic Leadership for AI-Driven Business Transformation: A Cross-Industry Framework for Technology Executives*
-*   **Institution:** Kennedy University
-*   **Research Hub:** Global Knowledge Hub
 *   **Supervisor:** Prof. Dr. Joseph Kwaku Mihaye
 *   **Research Scope:** Evaluates digital maturity, executive sponsorship, cross-functional business-technology alignment, and ethical AI deployment in global enterprises, service delivery hubs, and Indian IT services.
 """)
