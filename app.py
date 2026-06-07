@@ -834,39 +834,83 @@ def generate_pdf_from_markdown(markdown_text: str, p1: float, p2: float, p3: flo
     from cislf_engine import get_maturity_color, parse_cislf_report
     from pdf_generator import generate_premium_pdf
 
-    # ── Generate chart images ──────────────────────────────────────────────────
+    # ── Generate chart images (using Matplotlib for 100% robust headless server support) ────
     scores = [p1, p2, p3, p4]
     categories = ['Leadership Mindset', 'Biz-Tech Alignment', 'Capability & Culture', 'Responsible AI']
 
-    fig_radar = go.Figure()
-    fig_radar.add_trace(go.Scatterpolar(
-        r=scores + [scores[0]], theta=categories + [categories[0]],
-        fill='toself', fillcolor='rgba(82, 183, 136, 0.35)',
-        line=dict(color='#1B4332', width=2), name='CISLF'
-    ))
-    fig_radar.update_layout(
-        polar=dict(radialaxis=dict(visible=True, range=[0, 10], tickfont=dict(color='#6c757d'))),
-        showlegend=False, margin=dict(l=30, r=30, t=30, b=30), height=380, width=460,
-        paper_bgcolor='white'
-    )
-
-    df = pd.DataFrame({'Pillar': ['P1: Leadership', 'P2: Alignment', 'P3: Culture', 'P4: Governance'], 'Score': scores})
-    df['Color'] = [get_maturity_color(s) for s in scores]
-    fig_bar = px.bar(df, x='Score', y='Pillar', orientation='h', text='Score',
-                     color='Pillar', color_discrete_sequence=df['Color'].tolist())
-    fig_bar.update_traces(texttemplate='%{text:.1f}', textposition='outside',
-                          marker_line_color='#1B4332', marker_line_width=1.5)
-    fig_bar.update_layout(
-        xaxis=dict(range=[0, 11], title='', showgrid=True, gridcolor='#E9ECEF'),
-        yaxis=dict(title='', categoryorder='total ascending'),
-        showlegend=False, margin=dict(l=10, r=30, t=30, b=30), height=380, width=460,
-        paper_bgcolor='white', plot_bgcolor='white'
-    )
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import numpy as np
 
     radar_path = tempfile.mktemp(suffix=".png")
     bar_path = tempfile.mktemp(suffix=".png")
-    fig_radar.write_image(radar_path, scale=2)
-    fig_bar.write_image(bar_path, scale=2)
+
+    # 1. Radar Chart
+    angles = np.linspace(0, 2 * np.pi, len(categories), endpoint=False).tolist()
+    scores_closed = scores + [scores[0]]
+    angles_closed = angles + [angles[0]]
+
+    fig_rad, ax_rad = plt.subplots(figsize=(4.6, 3.8), subplot_kw=dict(polar=True), dpi=200)
+    fig_rad.patch.set_facecolor('white')
+    ax_rad.set_facecolor('white')
+
+    # Align 0 to the top and set clockwise direction (matches Plotly)
+    ax_rad.set_theta_offset(np.pi / 2)
+    ax_rad.set_theta_direction(-1)
+
+    ax_rad.plot(angles_closed, scores_closed, color='#1B4332', linewidth=2, linestyle='solid')
+    ax_rad.fill(angles_closed, scores_closed, color='#52B788', alpha=0.35)
+
+    ax_rad.set_xticks(angles)
+    ax_rad.set_xticklabels(categories, fontsize=8, color='#2D3748', fontweight='semibold')
+
+    ax_rad.set_ylim(0, 10)
+    ax_rad.set_rgrids([2, 4, 6, 8, 10], angle=0, color='#6c757d', fontsize=7)
+
+    ax_rad.spines['polar'].set_color('#E9ECEF')
+    ax_rad.grid(True, color='#E9ECEF', linestyle='-', linewidth=0.8)
+
+    plt.tight_layout()
+    fig_rad.savefig(radar_path, format='png', bbox_inches='tight', transparent=False)
+    plt.close(fig_rad)
+
+    # 2. Bar Chart
+    pillars = ['P1: Leadership', 'P2: Alignment', 'P3: Culture', 'P4: Governance']
+    colors = [get_maturity_color(s) for s in scores]
+
+    sorted_indices = sorted(range(len(scores)), key=lambda i: scores[i])
+    sorted_pillars = [pillars[i] for i in sorted_indices]
+    sorted_scores = [scores[i] for i in sorted_indices]
+    sorted_colors = [colors[i] for i in sorted_indices]
+
+    fig_b, ax_b = plt.subplots(figsize=(4.6, 3.8), dpi=200)
+    fig_b.patch.set_facecolor('white')
+    ax_b.set_facecolor('white')
+
+    bars = ax_b.barh(sorted_pillars, sorted_scores, color=sorted_colors, edgecolor='#1B4332', linewidth=1)
+
+    ax_b.set_xlim(0, 11)
+    ax_b.set_xlabel('')
+    ax_b.set_ylabel('')
+
+    for bar in bars:
+        width = bar.get_width()
+        ax_b.text(width + 0.15, bar.get_y() + bar.get_height()/2, f'{width:.1f}',
+                  va='center', ha='left', fontsize=8, color='#2D3748', fontweight='semibold')
+
+    ax_b.xaxis.grid(True, color='#E9ECEF', linestyle='-', linewidth=0.8)
+    ax_b.set_axisbelow(True)
+
+    for spine in ['top', 'right', 'bottom']:
+        ax_b.spines[spine].set_visible(False)
+    ax_b.spines['left'].set_color('#E9ECEF')
+    ax_b.tick_params(axis='both', colors='#6c757d', labelsize=8)
+
+    plt.tight_layout()
+    fig_b.savefig(bar_path, format='png', bbox_inches='tight', transparent=False)
+    plt.close(fig_b)
+
 
     parsed = parse_cislf_report(markdown_text)
 
