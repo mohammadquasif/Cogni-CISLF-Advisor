@@ -4,8 +4,16 @@
 
 # 🧠 Cogni CISLF Advisor: Strategic Leadership for AI-Driven Business Transformation
 
+<p align="center">
+  <a href="https://cogni-cislf-advisor.streamlit.app/" target="_blank">
+    <img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" alt="Streamlit App"/>
+  </a>
+</p>
+
 > **An Executive-Grade AI Strategic Leadership Consultant & Cross-Industry Framework**  
 > Powered by the **Comprehensive Intelligent Strategic Leadership Framework (CISLF)** — developed by **Mohammad Quasif, DBA in AI Candidate** (Registration No: KUSLS20220143572) over his doctoral research tenure (**2024-2026**) at the Global Knowledge Hub, Kennedy University. Research Supervisor: **Prof. Dr. Joseph Kwaku Mihaye** (Thesis Completion: **July 2026**).
+> 
+> 🌐 **Live Web Application:** **[https://cogni-cislf-advisor.streamlit.app/](https://cogni-cislf-advisor.streamlit.app/)**
 
 ---
 
