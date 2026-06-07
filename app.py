@@ -132,12 +132,16 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 [data-testid="stSidebar"] .stSelectbox > div > div { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
 
 /* Custom Sidebar Navigation Menu styling (converting radios to professional buttons) */
+div[data-testid="stSidebar"] [data-testid="stRadio"] > div,
+div[data-testid="stSidebar"] .stRadio > div,
 div[data-testid="stSidebar"] [role="radiogroup"] {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
     padding: 0.5rem 0;
 }
+div[data-testid="stSidebar"] [data-testid="stRadio"] label,
+div[data-testid="stSidebar"] .stRadio label,
 div[data-testid="stSidebar"] [role="radiogroup"] label {
     background-color: transparent !important;
     border-radius: 8px !important;
@@ -152,21 +156,42 @@ div[data-testid="stSidebar"] [role="radiogroup"] label {
     border-left: 3px solid transparent !important;
 }
 /* Hide the default radio circle inputs and their wrappers */
-div[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child {
+div[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
+div[data-testid="stSidebar"] .stRadio label > div:first-child,
+div[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child,
+div[data-testid="stSidebar"] [data-testid="stRadio"] label div[role="presentation"],
+div[data-testid="stSidebar"] .stRadio label div[role="presentation"],
+div[data-testid="stSidebar"] [data-testid="stRadio"] label svg,
+div[data-testid="stSidebar"] .stRadio label svg {
     display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+/* Ensure the text is vertically aligned and margins are cleared */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label [data-testid="stMarkdownContainer"] p,
+div[data-testid="stSidebar"] .stRadio label [data-testid="stMarkdownContainer"] p {
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
 }
 /* Selected state for sidebar menu buttons */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[type="radio"]:checked),
+div[data-testid="stSidebar"] .stRadio label:has(input[type="radio"]:checked),
 div[data-testid="stSidebar"] [role="radiogroup"] label:has(input[type="radio"]:checked) {
-    background: rgba(255, 255, 255, 0.09) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
     color: #FFFFFF !important;
-    border-left: 3px solid #52B788 !important;
+    border-left: 3.5px solid #52B788 !important;
     font-weight: 700 !important;
     box-shadow: inset 1px 0 0 rgba(255,255,255,0.05);
     border-radius: 0 8px 8px 0 !important;
     padding-left: 0.75rem !important;
 }
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
+div[data-testid="stSidebar"] .stRadio label:hover,
 div[data-testid="stSidebar"] [role="radiogroup"] label:hover {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
     color: #FFFFFF !important;
 }
 
@@ -755,43 +780,45 @@ def _render_overall_maturity_card(p1, p2, p3, p4, overall):
     color = get_maturity_color(overall)
     label = get_maturity_label(overall)
     
-    st.markdown(f"""
-<div style="background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.02); height: 100%;">
-    <h3 style="margin-top:0; color:#1B4332; font-family:'Plus Jakarta Sans', sans-serif;">📈 Overall CISLF Maturity</h3>
-    <div style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1.2rem; margin-bottom: 1.5rem;">
-        <div style="width: 80px; height: 80px; border-radius: 50%; border: 6px solid {color}; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; color: {color}; flex-shrink: 0;">
-            {overall:.1f}
-        </div>
-        <div>
-            <div style="font-size: 1.1rem; font-weight: 700; color: #1B4332;">{label}</div>
-            <div style="font-size: 0.82rem; color: #6c757d; margin-top: 0.2rem; line-height: 1.3;">Framework maturity index. Generate a full report to update.</div>
-        </div>
-    </div>
-    
-    <h4 style="color:#1B4332; font-family:'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight:700; margin-bottom: 1rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1rem;">Pillar Score Breakdown</h4>
-""", unsafe_allow_html=True)
-
     pillars_data = [
         ("Pillar 1: Leadership Mindset", p1, "#0288D1"),
         ("Pillar 2: Strategic Alignment", p2, "#5E35B1"),
         ("Pillar 3: Organisational Capability", p3, "#C65911"),
         ("Pillar 4: Responsible Governance", p4, "#F57F17"),
     ]
+    
+    breakdown_html = ""
     for name, val, bar_color in pillars_data:
         pct = int((val / 10) * 100)
-        st.markdown(f"""
+        breakdown_html += f"""
 <div style="margin-bottom: 0.9rem;">
-    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: #1B4332;">
+    <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: #1B4332;">
         <span>{name}</span>
         <span>{val:.1f}/10</span>
     </div>
-    <div class="progress-track" style="margin-top: 0.25rem; background: #E9ECEF; border-radius: 8px; height: 10px; overflow: hidden;">
+    <div class="progress-track" style="margin-top: 0.25rem; background: #E9ECEF; border-radius: 8px; height: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.03);">
         <div class="progress-fill" style="background:{bar_color}; width:{pct}%; height: 100%; border-radius: 8px; transition: width 0.4s ease;"></div>
     </div>
 </div>
+"""
+
+    st.markdown(f"""
+<div style="background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.02); height: 100%;">
+    <h3 style="margin-top:0; color:#1B4332; font-family:'Plus Jakarta Sans', sans-serif;">📊 Overall CISLF Maturity</h3>
+    <div style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1.2rem; margin-bottom: 1.5rem;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; border: 6px solid {color}; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; color: {color}; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            {overall:.1f}
+        </div>
+        <div>
+            <div style="font-size: 1.2rem; font-weight: 800; color: #1B4332;">{label}</div>
+            <div style="font-size: 0.82rem; color: #6c757d; margin-top: 0.2rem; line-height: 1.3;">Framework maturity index. Generate a full report to update.</div>
+        </div>
+    </div>
+    
+    <h4 style="color:#1B4332; font-family:'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight:700; margin-bottom: 1rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1rem;">Pillar Score Breakdown</h4>
+    {breakdown_html}
+</div>
 """, unsafe_allow_html=True)
-        
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 def _render_plotly_charts(p1, p2, p3, p4):
