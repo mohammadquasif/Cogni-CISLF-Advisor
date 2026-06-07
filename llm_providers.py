@@ -16,11 +16,12 @@ import time
 from google import genai
 from google.genai import types as genai_types
 from openai import OpenAI, AuthenticationError, RateLimitError, APITimeoutError
+import anthropic
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-REQUEST_TIMEOUT_SECONDS = 120  # Max wait for any single LLM call
+REQUEST_TIMEOUT_SECONDS = 480  # 8 min — single-call pipeline; reasoning models (o1, DeepSeek-R1, claude-opus) can be slow
 MAX_RETRIES = 2                # Number of retry attempts on transient errors
 RETRY_DELAY_SECONDS = 5        # Wait between retries
 
@@ -52,11 +53,6 @@ class GeminiProvider:
             raise LLMProviderError(
                 "Gemini API key is missing. Please enter your key in the sidebar."
             )
-        if model_name not in self.SUPPORTED_MODELS:
-            raise LLMProviderError(
-                f"Unsupported Gemini model '{model_name}'. "
-                f"Choose from: {self.SUPPORTED_MODELS}"
-            )
 
         # Instantiate the new google-genai client
         self.model_name = model_name
@@ -83,8 +79,8 @@ class GeminiProvider:
         combined_prompt = f"{system_prompt}\n\n---\n\n{user_prompt}"
 
         generation_config = genai_types.GenerateContentConfig(
-            temperature=0.4,          # Balanced: structured but insightful
-            max_output_tokens=4096,   # Sufficient for full CISLF report
+            temperature=0.3,          # Lower temp = faster, more focused output
+            max_output_tokens=6000,   # Full CISLF report fits in 5-6k tokens
         )
 
         for attempt in range(1, MAX_RETRIES + 2):  # +2 for initial + retries
@@ -158,11 +154,6 @@ class OpenAIProvider:
             raise LLMProviderError(
                 "OpenAI API key is missing. Please enter your key in the sidebar."
             )
-        if model_name not in self.SUPPORTED_MODELS:
-            raise LLMProviderError(
-                f"Unsupported OpenAI model '{model_name}'. "
-                f"Choose from: {self.SUPPORTED_MODELS}"
-            )
 
         self.model_name = model_name
         self.client = OpenAI(
@@ -192,8 +183,8 @@ class OpenAIProvider:
                         {"role": "system", "content": system_prompt},
                         {"role": "user",   "content": user_prompt},
                     ],
-                    temperature=0.4,
-                    max_tokens=4096,
+                    temperature=0.3,
+                    max_tokens=6000,
                 )
                 content = response.choices[0].message.content
                 if content:
@@ -250,11 +241,6 @@ class DeepSeekProvider:
             raise LLMProviderError(
                 "DeepSeek API key is missing. Please enter your key in settings."
             )
-        if model_name not in self.SUPPORTED_MODELS:
-            raise LLMProviderError(
-                f"Unsupported DeepSeek model '{model_name}'. "
-                f"Choose from: {self.SUPPORTED_MODELS}"
-            )
 
         self.model_name = model_name
         self.client = OpenAI(
@@ -275,11 +261,11 @@ class DeepSeekProvider:
                     "messages": [
                         {"role": "system", "content": system_prompt},
                         {"role": "user",   "content": user_prompt},
-                    ]
+                    ],
+                    "max_tokens": 6000,
                 }
                 if self.model_name == "deepseek-chat":
-                    kwargs["temperature"] = 0.4
-                    kwargs["max_tokens"] = 4096
+                    kwargs["temperature"] = 0.3
 
                 response = self.client.chat.completions.create(**kwargs)
                 content = response.choices[0].message.content
@@ -319,31 +305,227 @@ class DeepSeekProvider:
 
 
 # ---------------------------------------------------------------------------
+# Anthropic Provider
+# ---------------------------------------------------------------------------
+class AnthropicProvider:
+    """
+    Adapter for Anthropic Claude API.
+
+    Supports:
+      - claude-3-7-sonnet-20250219 (Latest Sonnet)
+      - claude-3-5-sonnet-latest   (3.5 Sonnet)
+      - claude-3-opus-latest       (Opus)
+    """
+
+    SUPPORTED_MODELS = [
+        "claude-3-7-sonnet-20250219", 
+        "claude-3-5-sonnet-latest", 
+        "claude-3-opus-latest"
+    ]
+
+    def __init__(self, api_key: str, model_name: str = "claude-3-5-sonnet-latest"):
+        if not api_key or not api_key.strip():
+            raise LLMProviderError(
+                "Anthropic API key is missing. Please enter your key in the sidebar."
+            )
+
+        self.model_name = model_name
+        self.client = anthropic.Anthropic(
+            api_key=api_key.strip(),
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+
+    def generate(self, system_prompt: str, user_prompt: str) -> str:
+        """
+        Send a system + user message to Anthropic Claude.
+        """
+        for attempt in range(1, MAX_RETRIES + 2):
+            try:
+                response = self.client.messages.create(
+                    model=self.model_name,
+                    max_tokens=6000,
+                    system=system_prompt,
+                    messages=[
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.3,
+                )
+                
+                content = response.content[0].text
+                if content:
+                    return content.strip()
+                else:
+                    raise LLMProviderError(
+                        "Anthropic returned an empty response. "
+                        "Try rephrasing your challenge description."
+                    )
+
+            except anthropic.AuthenticationError as e:
+                raise LLMProviderError(
+                    "Invalid Anthropic API key. Please check the key in the sidebar."
+                ) from e
+
+            except anthropic.RateLimitError as e:
+                if attempt <= MAX_RETRIES:
+                    time.sleep(RETRY_DELAY_SECONDS * attempt)
+                    continue
+                raise LLMProviderError(
+                    "Anthropic rate limit reached. Please wait a moment and try again."
+                ) from e
+
+            except anthropic.APITimeoutError as e:
+                if attempt <= MAX_RETRIES:
+                    time.sleep(RETRY_DELAY_SECONDS)
+                    continue
+                raise LLMProviderError(
+                    "Request timed out. Please try again."
+                ) from e
+
+            except Exception as e:
+                raise LLMProviderError(f"Anthropic API error: {str(e)}") from e
+
+        raise LLMProviderError("Failed to get a response from Anthropic after retries.")
+
+
+# ---------------------------------------------------------------------------
+# Groq Provider
+# ---------------------------------------------------------------------------
+class GroqProvider:
+    """Adapter for Groq API (OpenAI-compatible)."""
+
+    def __init__(self, api_key: str, model_name: str = "llama-3.3-70b-versatile"):
+        if not api_key or not api_key.strip():
+            raise LLMProviderError("Groq API key is missing.")
+        self.model_name = model_name
+        self.client = OpenAI(
+            api_key=api_key.strip(),
+            base_url="https://api.groq.com/openai/v1",
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+
+    def generate(self, system_prompt: str, user_prompt: str) -> str:
+        for attempt in range(1, MAX_RETRIES + 2):
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user",   "content": user_prompt},
+                    ],
+                    temperature=0.3,
+                    max_tokens=6000,
+                )
+                content = response.choices[0].message.content
+                if content:
+                    return content.strip()
+                raise LLMProviderError("Groq returned an empty response.")
+            except Exception as e:
+                err_str = str(e).lower()
+                if "rate limit" in err_str or "429" in err_str:
+                    if attempt <= MAX_RETRIES:
+                        time.sleep(RETRY_DELAY_SECONDS * attempt)
+                        continue
+                raise LLMProviderError(f"Groq API error: {str(e)}") from e
+        raise LLMProviderError("Failed to get a response from Groq after retries.")
+
+
+# ---------------------------------------------------------------------------
+# OpenRouter Provider
+# ---------------------------------------------------------------------------
+class OpenRouterProvider:
+    """Adapter for OpenRouter API (OpenAI-compatible)."""
+
+    def __init__(self, api_key: str, model_name: str = "openai/o3-mini"):
+        if not api_key or not api_key.strip():
+            raise LLMProviderError("OpenRouter API key is missing.")
+        self.model_name = model_name
+        self.client = OpenAI(
+            api_key=api_key.strip(),
+            base_url="https://openrouter.ai/api/v1",
+            timeout=REQUEST_TIMEOUT_SECONDS,
+            default_headers={
+                "HTTP-Referer": "https://cognicislf.com",
+                "X-Title": "Cogni CISLF Advisor",
+            }
+        )
+
+    def generate(self, system_prompt: str, user_prompt: str) -> str:
+        for attempt in range(1, MAX_RETRIES + 2):
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user",   "content": user_prompt},
+                    ],
+                    max_tokens=6000,
+                    temperature=0.3,
+                )
+                content = response.choices[0].message.content
+                if content:
+                    return content.strip()
+                raise LLMProviderError("OpenRouter returned an empty response.")
+            except Exception as e:
+                err_str = str(e).lower()
+                if "rate limit" in err_str or "429" in err_str:
+                    if attempt <= MAX_RETRIES:
+                        time.sleep(RETRY_DELAY_SECONDS * attempt)
+                        continue
+                raise LLMProviderError(f"OpenRouter API error: {str(e)}") from e
+        raise LLMProviderError("Failed to get a response from OpenRouter after retries.")
+
+
+# ---------------------------------------------------------------------------
 # Provider Factory
 # ---------------------------------------------------------------------------
 def get_provider(provider_name: str, api_key: str, model_name: str):
-    """
-    Factory function — returns the appropriate provider instance.
-
-    Args:
-        provider_name: "Google Gemini", "OpenAI", or "DeepSeek"
-        api_key:       API key string from session state
-        model_name:    Model identifier string
-
-    Returns:
-        GeminiProvider, OpenAIProvider, or DeepSeekProvider instance.
-
-    Raises:
-        LLMProviderError: If provider_name is not recognised.
-    """
     if provider_name == "Google Gemini":
         return GeminiProvider(api_key=api_key, model_name=model_name)
     elif provider_name == "OpenAI":
         return OpenAIProvider(api_key=api_key, model_name=model_name)
     elif provider_name == "DeepSeek":
         return DeepSeekProvider(api_key=api_key, model_name=model_name)
+    elif provider_name == "Anthropic Claude":
+        return AnthropicProvider(api_key=api_key, model_name=model_name)
+    elif provider_name == "Groq":
+        return GroqProvider(api_key=api_key, model_name=model_name)
+    elif provider_name == "OpenRouter":
+        return OpenRouterProvider(api_key=api_key, model_name=model_name)
     else:
-        raise LLMProviderError(
-            f"Unknown provider '{provider_name}'. "
-            "Please select 'Google Gemini', 'OpenAI', or 'DeepSeek'."
-        )
+        raise LLMProviderError(f"Unknown provider '{provider_name}'.")
+
+# ---------------------------------------------------------------------------
+# Live Model Fetching
+# ---------------------------------------------------------------------------
+def fetch_live_models(provider_name: str, api_key: str) -> tuple[list[str], str]:
+    """
+    Fetch a live list of models from the provider's API.
+    Returns (models_list, error_message).
+    """
+    if not api_key:
+        return [], "API Key is missing."
+
+    try:
+        if provider_name == "OpenAI":
+            client = OpenAI(api_key=api_key.strip())
+            return sorted([m.id for m in client.models.list().data]), ""
+        elif provider_name == "DeepSeek":
+            client = OpenAI(api_key=api_key.strip(), base_url="https://api.deepseek.com")
+            return sorted([m.id for m in client.models.list().data]), ""
+        elif provider_name == "Groq":
+            client = OpenAI(api_key=api_key.strip(), base_url="https://api.groq.com/openai/v1")
+            models = sorted([m.id for m in client.models.list().data if 'llama' in m.id.lower() or 'mixtral' in m.id.lower() or 'gemma' in m.id.lower() or 'deepseek' in m.id.lower()])
+            return models, ""
+        elif provider_name == "OpenRouter":
+            client = OpenAI(api_key=api_key.strip(), base_url="https://openrouter.ai/api/v1")
+            return sorted([m.id for m in client.models.list().data]), ""
+        elif provider_name == "Google Gemini":
+            client = genai.Client(api_key=api_key.strip())
+            return sorted([m.name.replace("models/", "") for m in client.models.list() if "generateContent" in m.supported_actions]), ""
+        elif provider_name == "Anthropic Claude":
+            client = anthropic.Anthropic(api_key=api_key.strip())
+            return sorted([m.id for m in client.models.list().data]), ""
+        else:
+            return [], f"Live fetch not supported for {provider_name}"
+    except Exception as e:
+        return [], str(e)
