@@ -140,9 +140,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
     gap: 0.5rem !important;
     padding: 0.5rem 0 !important;
 }
-[data-testid="stSidebar"] [data-testid="stRadio"] label,
-[data-testid="stSidebar"] .stRadio label,
-[data-testid="stSidebar"] [role="radiogroup"] label {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]),
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]),
+[data-testid="stSidebar"] [role="radiogroup"] label:not([data-testid="stWidgetLabel"]) {
     background-color: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
     border-radius: 8px !important;
@@ -156,15 +156,15 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
     color: #D8F3DC !important;
 }
 /* Hide the default radio circle inputs and their wrappers */
-[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
-[data-testid="stSidebar"] .stRadio label > div:first-child,
-[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child,
-[data-testid="stSidebar"] [data-testid="stRadio"] label div[role="presentation"],
-[data-testid="stSidebar"] .stRadio label div[role="presentation"],
-[data-testid="stSidebar"] [data-testid="stRadio"] label svg,
-[data-testid="stSidebar"] .stRadio label svg,
-[data-testid="stSidebar"] [data-testid="stRadio"] label input[type="radio"],
-[data-testid="stSidebar"] .stRadio label input[type="radio"] {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]) > div:first-child,
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]) > div:first-child,
+[data-testid="stSidebar"] [role="radiogroup"] label:not([data-testid="stWidgetLabel"]) > div:first-child,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]) div[role="presentation"],
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]) div[role="presentation"],
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]) svg,
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]) svg,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]) input[type="radio"],
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]) input[type="radio"] {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -172,8 +172,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
     visibility: hidden !important;
 }
 /* Ensure the text is vertically aligned and margins are cleared */
-[data-testid="stSidebar"] [data-testid="stRadio"] label [data-testid="stMarkdownContainer"] p,
-[data-testid="stSidebar"] .stRadio label [data-testid="stMarkdownContainer"] p {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]) [data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]) [data-testid="stMarkdownContainer"] p {
     margin: 0 !important;
     font-size: 0.9rem !important;
     font-weight: 500 !important;
@@ -181,26 +181,26 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
     color: #D8F3DC !important;
 }
 /* Selected state for sidebar menu buttons */
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[type="radio"]:checked),
-[data-testid="stSidebar"] .stRadio label:has(input[type="radio"]:checked),
-[data-testid="stSidebar"] [role="radiogroup"] label:has(input[type="radio"]:checked),
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has([data-checked="true"]),
-[data-testid="stSidebar"] .stRadio label:has([data-checked="true"]),
-[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"],
-[data-testid="stSidebar"] .stRadio label[data-checked="true"] {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]):has(input[type="radio"]:checked),
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]):has(input[type="radio"]:checked),
+[data-testid="stSidebar"] [role="radiogroup"] label:not([data-testid="stWidgetLabel"]):has(input[type="radio"]:checked),
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]):has([data-checked="true"]),
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]):has([data-checked="true"]),
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"])[data-checked="true"],
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"])[data-checked="true"] {
     background: linear-gradient(90deg, #1B4332 0%, #2D6A4F 100%) !important;
     border: 1px solid rgba(82, 183, 136, 0.4) !important;
     color: #FFFFFF !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[type="radio"]:checked) [data-testid="stMarkdownContainer"] p,
-[data-testid="stSidebar"] .stRadio label:has(input[type="radio"]:checked) [data-testid="stMarkdownContainer"] p {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]):has(input[type="radio"]:checked) [data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]):has(input[type="radio"]:checked) [data-testid="stMarkdownContainer"] p {
     font-weight: 700 !important;
     color: #FFFFFF !important;
 }
-[data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
-[data-testid="stSidebar"] .stRadio label:hover,
-[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-testid="stWidgetLabel"]):hover,
+[data-testid="stSidebar"] .stRadio label:not([data-testid="stWidgetLabel"]):hover,
+[data-testid="stSidebar"] [role="radiogroup"] label:not([data-testid="stWidgetLabel"]):hover {
     background-color: rgba(255, 255, 255, 0.08) !important;
     border-color: rgba(255, 255, 255, 0.15) !important;
     color: #FFFFFF !important;
@@ -523,16 +523,19 @@ def render_sidebar():
     if os.path.exists("assets/cogni_logo.png"):
         logo_b64 = get_image_base64("assets/cogni_logo.png")
         st.sidebar.markdown(f"""
-        <div style="text-align: center; padding: 1.2rem 0.5rem 0.8rem; margin-bottom: 0.8rem; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
-            <img src="{logo_b64}" style="width: 68px; height: 68px; border-radius: 10px; margin-bottom: 0.6rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.2px;">Cogni CISLF</div>
-            <div style="font-size: 0.72rem; color: #95D5B2; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 0.15rem;">Strategic Advisor</div>
+        <div style="display: flex; align-items: center; gap: 0.85rem; padding: 0.75rem 0.9rem; margin-bottom: 0.6rem; border-radius: 12px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%); border: 1px solid rgba(255, 255, 255, 0.07); box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <img src="{logo_b64}" style="width: 42px; height: 42px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0;">
+            <div>
+                <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.05rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.2px; line-height: 1.1;">Cogni CISLF</div>
+                <div style="font-size: 0.65rem; color: #52B788; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 0.2rem;">Strategic Advisor</div>
+            </div>
         </div>
         """, unsafe_allow_html=True)
     else:
         st.sidebar.markdown("## 🧠 Cogni CISLF Advisor")
 
-    st.sidebar.markdown("---")
+    # Thin compact divider spacing
+    st.sidebar.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
 
     # ── Page Navigation ───────────────────────────────────────────────────
     st.sidebar.markdown("<p style='font-size:0.75rem;color:#85D2B2;font-weight:700;margin-bottom:0.4rem;letter-spacing:0.5px;'>NAVIGATION</p>", unsafe_allow_html=True)
