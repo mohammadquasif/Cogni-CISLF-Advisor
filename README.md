@@ -143,13 +143,17 @@ To achieve true **AI-driven business transformation**, leaders must satisfy four
 
 ## 🔑 LLM Integration & Security Architecture
 
-The AI Consultation feature integrates securely with multiple models across three major API providers.
+The AI Consultation feature integrates securely with multiple models across six major API providers.
 
 | Provider | Supported Models | Access Type | API Key Source |
 | :--- | :--- | :--- | :--- |
 | **Google Gemini** | `gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-2.5-pro` | Free/Paid tiers | [Google AI Studio](https://aistudio.google.com/app/apikey) |
 | **OpenAI** | `gpt-4o-mini`, `gpt-4o`, `o3-mini`, `o1` | Paid / Token billing | [OpenAI API Keys](https://platform.openai.com/api-keys) |
 | **DeepSeek** | `deepseek-chat`, `deepseek-reasoner` | Paid / Token billing | [DeepSeek Developer Console](https://platform.deepseek.com/) |
+| **Anthropic Claude** | `claude-3-5-sonnet-latest`, `claude-3-7-sonnet-20250219`, `claude-3-opus-latest` | Paid / Token billing | [Anthropic Console](https://console.anthropic.com/) |
+| **Groq** | `llama-3.3-70b-versatile`, `mixtral-8x7b-32768` | Free tier / Paid | [Groq Console](https://console.groq.com/keys) |
+| **OpenRouter** | `openai/o3-mini`, `anthropic/claude-3.7-sonnet`, `deepseek/deepseek-r1` | Token billing / Multi-provider | [OpenRouter Keys](https://openrouter.ai/keys) |
+
 
 ### 🔒 Secure Credentials Vault
 Cogni CISLF Advisor ensures maximum security via a local-first credential system (`local_storage.py`):

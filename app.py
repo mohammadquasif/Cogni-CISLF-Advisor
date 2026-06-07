@@ -2753,6 +2753,7 @@ def page_setup():
                 "Look for models with 'thinking', 'reasoning', 'o1', 'r1', or '3.7-sonnet' in their names. These models "
                 "evaluate the scenario step-by-step internally before responding, providing deeply structured insights.\n\n"
                 "**Official Model Lists:**\n"
+                "- [Google Gemini Models](https://ai.google.dev/gemini-api/docs/models/gemini)\n"
                 "- [OpenAI Models](https://platform.openai.com/docs/models)\n"
                 "- [Anthropic Claude Models](https://docs.anthropic.com/en/docs/models-overview)\n"
                 "- [DeepSeek Models](https://api-docs.deepseek.com/)\n"
@@ -2935,10 +2936,18 @@ Cogni CISLF Advisor provides two assessment modes designed to translate this aca
 * **📋 Manual Mode (Static Engine):** A deterministic, rule-based engine that evaluates an organization using a 20-question weighted survey based on static cross-industry templates. It is suitable for a fast offline baseline but lacks custom context.
 
 #### The Multi-Stage AI Pipeline (What Makes Our AI Framework Different)
-Unlike standard, generic chatbot queries, Cogni CISLF Advisor runs a strict multi-stage pipeline:
 1. **Stage 0: Intent & Industry Detection:** The engine classifies your challenge in real-time. If it detects a mismatch between your text narrative and selected industry, it alerts you in the UI and automatically aligns the context to the correct industry framework.
 2. **Stage 1: Intent Enrichment:** Enhances raw prompts with strategic context and DBA thesis guardrails behind the scenes before making the call, avoiding generic LLM output.
 3. **Stage 2: Deterministic Output Enforcement:** Validates that the report includes all mandatory sections (Pillars, 90-Day Roadmaps, Risk Matrix, Scorecard) and repopulates missing information using relaxed string-matching fallbacks.
+
+### 🤖 Supported AI Models & Providers
+The application natively supports a variety of state-of-the-art LLMs across multiple industry-leading providers:
+* **Google Gemini:** `gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-2.5-pro`
+* **OpenAI:** `gpt-4o-mini`, `gpt-4o`, `o3-mini`, `o1`
+* **DeepSeek:** `deepseek-chat`, `deepseek-reasoner`
+* **Anthropic Claude:** `claude-3-5-sonnet-latest`, `claude-3-7-sonnet-20250219`, `claude-3-opus-latest`
+* **Groq:** `llama-3.3-70b-versatile`, `mixtral-8x7b-32768`
+* **OpenRouter:** `openai/o3-mini`, `anthropic/claude-3.7-sonnet`, `deepseek/deepseek-r1`
 
 ### 📚 Academic Citation & Credibility
 To cite this research or application in academic papers, business reviews, or strategic briefs:

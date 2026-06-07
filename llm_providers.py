@@ -46,7 +46,7 @@ class GeminiProvider:
       - gemini-1.5-pro    (more capable, higher quota usage)
     """
 
-    SUPPORTED_MODELS = ["gemini-1.5-flash", "gemini-1.5-pro"]
+    SUPPORTED_MODELS = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.5-pro"]
 
     def __init__(self, api_key: str, model_name: str = "gemini-1.5-flash"):
         if not api_key or not api_key.strip():
@@ -147,7 +147,7 @@ class OpenAIProvider:
       - gpt-4o       (most capable)
     """
 
-    SUPPORTED_MODELS = ["gpt-4o-mini", "gpt-4o"]
+    SUPPORTED_MODELS = ["gpt-4o-mini", "gpt-4o", "o3-mini", "o1"]
 
     def __init__(self, api_key: str, model_name: str = "gpt-4o-mini"):
         if not api_key or not api_key.strip():
