@@ -2958,7 +2958,6 @@ To cite this research or application in academic papers, business reviews, or st
         st.markdown("""
 ### 👤 Academic Author Profile
 *   **Author:** **Mohammad Quasif**
-*   **Role:** Lead Consultant JL6 — Infosys Limited
 *   **Academic Profile:**
     *   DBA in AI Candidate — Kennedy University (Global Knowledge Hub, Registration No: KUSLS20220143572)
     *   Research Tenure: 2024 - 2026 (Thesis Completion: July 2026)

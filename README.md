@@ -225,7 +225,6 @@ Global Knowledge Hub, Kennedy University. Supervisor: Prof. Dr. Joseph Kwaku Mih
 ## 👤 Academic Author Profile
 
 *   **Author:** **Mohammad Quasif**
-*   **Role:** Lead Consultant JL6 — Infosys Limited
 *   **Academic Profile:**
     *   Doctor of Business Administration in Artificial Intelligence (DBA in AI) Candidate — Kennedy University (Global Knowledge Hub, Registration No: KUSLS20220143572)
     *   Research Tenure: 2024 - 2026 (Thesis Completion: July 2026)

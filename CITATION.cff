@@ -2,8 +2,7 @@ cff-version: 1.2.0
 message: "If you use this framework or software, please cite it as below."
 title: "Cogni CISLF Advisor"
 authors:
-  - family-names: Quasif
-    given-names: Mohammad
+  - name: "Quasif, Mohammad"
     orcid: "https://orcid.org/0009-0003-9455-4804"
 version: 2.0.0
 date-released: 2026-06-07
