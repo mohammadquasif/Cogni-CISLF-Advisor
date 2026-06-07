@@ -823,14 +823,20 @@ def parse_cislf_report(report_text: str) -> dict:
         tu = text.upper()
         s = tu.find(start.upper())
         if s == -1:
-            return ""
-        s += len(start)
+            start_alt = start.replace("-", " ")
+            s = tu.find(start_alt.upper())
+            if s == -1:
+                return ""
+            s += len(start_alt)
+        else:
+            s += len(start)
+            
         e = tu.find(end.upper(), s)
         return text[s:e].strip() if e != -1 else text[s:].strip()
 
     # 1. Executive Summary & Readiness Score
     exec_summary_raw = extract_between(report_text, "EXECUTIVE SUMMARY", "TRANSFORMATION READINESS SCORE:")
-    exec_summary_lines = [line.strip() for line in exec_summary_raw.splitlines() if line.strip() and not all(c in "-─=═" for c in line.strip())]
+    exec_summary_lines = [line.strip() for line in exec_summary_raw.splitlines() if line.strip() and not all(c in "-─=═*" for c in line.strip())]
     parsed["executive_summary"] = "\n".join(exec_summary_lines)
 
     # Readiness Score
@@ -952,8 +958,8 @@ def parse_cislf_report(report_text: str) -> dict:
                     break
             
             if prob_impact_line:
-                match_prob = re.search(r"probability:\s*([a-zA-Z]+)", prob_impact_line, re.IGNORECASE)
-                match_imp = re.search(r"impact:\s*([a-zA-Z]+)", prob_impact_line, re.IGNORECASE)
+                match_prob = re.search(r"probability:\s*(?:\*\*)?\s*([a-zA-Z]+)", prob_impact_line, re.IGNORECASE)
+                match_imp = re.search(r"impact:\s*(?:\*\*)?\s*([a-zA-Z]+)", prob_impact_line, re.IGNORECASE)
                 if match_prob:
                     risk_info["probability"] = match_prob.group(1).capitalize()
                 if match_imp:

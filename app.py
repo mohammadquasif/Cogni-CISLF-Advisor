@@ -741,10 +741,10 @@ def render_sidebar():
     st.sidebar.markdown("<p style='font-size:0.7rem;color:#85D2B2;font-weight:700;margin-bottom:0.25rem;letter-spacing:0.5px;'>NAVIGATION</p>", unsafe_allow_html=True)
     options = [
         "📊 Dashboard",
-        "🤖 AI Consultation",
-        "📋 Manual Assessment",
-        "⚙️ Setup & Settings",
-        "ℹ️ About & Reference"
+        "🤖 AI Consultant",
+        "📋 Manual",
+        "⚙️ Settings",
+        "ℹ️ About"
     ]
     current_page = st.session_state.get("page", "📊 Dashboard")
     if current_page not in options:
@@ -1370,7 +1370,7 @@ def page_dashboard():
                     for k in keys_to_delete:
                         del st.session_state[k]
                         
-                    st.session_state["page"] = "📋 Manual Assessment"
+                    st.session_state["page"] = "📋 Manual"
                 st.button("🔄 Retest", on_click=_do_retest, key="btn_dash_retest", use_container_width=True, type="primary")
         
         # Parse the report using the cislf_engine parser
@@ -1622,8 +1622,8 @@ def page_dashboard():
         <div style="background: rgba(255,255,255,0.7); border-radius: 10px; padding: 1.2rem; border: 1px dashed rgba(0,0,0,0.1); font-size:0.88rem; margin-bottom: 1.5rem;">
             <strong style="color: #1B4332;">Assessment Options:</strong><br>
             <ul>
-                <li style="margin-top:0.4rem;"><strong>🤖 AI Consultation</strong> — Submit your detailed enterprise transformation challenge. The AI model analyzes it against the 4 pillars of the CISLF framework.</li>
-                <li style="margin-top:0.4rem;"><strong>📋 Manual Assessment</strong> — Complete the 20-question structured weighted questionnaire. The rules engine calculates scores and generates your report instantly.</li>
+                <li style="margin-top:0.4rem;"><strong>🤖 AI Consultant</strong> — Submit your detailed enterprise transformation challenge. The AI model analyzes it against the 4 pillars of the CISLF framework.</li>
+                <li style="margin-top:0.4rem;"><strong>📋 Manual</strong> — Complete the 20-question structured weighted questionnaire. The rules engine calculates scores and generates your report instantly.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -1682,7 +1682,7 @@ def page_manual_assessment():
         st.markdown("""
         ### Dimensions of Comparison
         
-        | Dimension | 📋 Manual Assessment | 🤖 AI Consultation |
+        | Dimension | 📋 Manual | 🤖 AI Consultant |
         | :--- | :--- | :--- |
         | **Input Type** | Static 20-question questionnaire | Raw textual description of organizational challenge |
         | **Contextual Depth** | Low (uses standardized Likert scales) | High (analyzes narrative nuances and team dynamics) |
@@ -1758,7 +1758,7 @@ def _ai_mode_form():
     with status_col2:
         st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
         if st.button("⚙️ Setup Engine", key="btn_setup_redirect", help="Configure providers, models and keys", type="secondary"):
-            st.session_state["page"] = "⚙️ Setup & Settings"
+            st.session_state["page"] = "⚙️ Settings"
             st.rerun()
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -1925,7 +1925,7 @@ def _run_ai_generation(challenge: str, role: str, industry: str):
     if not industry or not industry.strip():
         errors.append("🏢 Industry / Sector is mandatory. Please select your industry.")
     if not api_key or not api_key.strip():
-        errors.append(f"🔑 {provider} API key is required. Go to ⚙️ Setup & Settings to add your key.")
+        errors.append(f"🔑 {provider} API key is required. Go to ⚙️ Settings to add your key.")
     if errors:
         for e in errors:
             st.error(e)
@@ -2931,8 +2931,8 @@ The CISLF framework was built to introduce **decision discipline** into the ente
 
 ### 🧠 App Logic: Why AI Mode is Superior & How the Engine Works
 Cogni CISLF Advisor provides two assessment modes designed to translate this academic framework into software logic:
-* **🤖 AI Consultation Mode (Dynamic Engine):** Uses Large Language Models (LLMs) to perform semantic analysis on custom corporate AI challenges. By processing raw text narrating legacy problems, it extracts nuanced operational constraints, dynamic capabilities, and strategic gaps. It then synthesizes real-time regulatory compliance (e.g., EU AI Act, localized privacy mandates) and modern best practices into custom strategies.
-* **📋 Manual Assessment Mode (Static Engine):** A deterministic, rule-based engine that evaluates an organization using a 20-question weighted survey based on static cross-industry templates. It is suitable for a fast offline baseline but lacks custom context.
+* **🤖 AI Consultant Mode (Dynamic Engine):** Uses Large Language Models (LLMs) to perform semantic analysis on custom corporate AI challenges. By processing raw text narrating legacy problems, it extracts nuanced operational constraints, dynamic capabilities, and strategic gaps. It then synthesizes real-time regulatory compliance (e.g., EU AI Act, localized privacy mandates) and modern best practices into custom strategies.
+* **📋 Manual Mode (Static Engine):** A deterministic, rule-based engine that evaluates an organization using a 20-question weighted survey based on static cross-industry templates. It is suitable for a fast offline baseline but lacks custom context.
 
 #### The Multi-Stage AI Pipeline (What Makes Our AI Framework Different)
 Unlike standard, generic chatbot queries, Cogni CISLF Advisor runs a strict multi-stage pipeline:
@@ -3016,13 +3016,13 @@ def main():
 
     if page == "📊 Dashboard":
         page_dashboard()
-    elif page == "🤖 AI Consultation":
+    elif page == "🤖 AI Consultant":
         page_ai_consultation()
-    elif page == "📋 Manual Assessment":
+    elif page == "📋 Manual":
         page_manual_assessment()
-    elif page == "⚙️ Setup & Settings":
+    elif page == "⚙️ Settings":
         page_setup()
-    elif page == "ℹ️ About & Reference":
+    elif page == "ℹ️ About":
         page_about()
 
 

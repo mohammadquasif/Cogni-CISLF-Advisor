@@ -80,7 +80,7 @@ class GeminiProvider:
 
         generation_config = genai_types.GenerateContentConfig(
             temperature=0.3,          # Lower temp = faster, more focused output
-            max_output_tokens=6000,   # Full CISLF report fits in 5-6k tokens
+            max_output_tokens=8192,   # Full CISLF report fits in 5-6k tokens, increased to 8192 to prevent truncation
         )
 
         for attempt in range(1, MAX_RETRIES + 2):  # +2 for initial + retries
@@ -184,7 +184,7 @@ class OpenAIProvider:
                         {"role": "user",   "content": user_prompt},
                     ],
                     temperature=0.3,
-                    max_tokens=6000,
+                    max_tokens=8192,
                 )
                 content = response.choices[0].message.content
                 if content:
@@ -262,7 +262,7 @@ class DeepSeekProvider:
                         {"role": "system", "content": system_prompt},
                         {"role": "user",   "content": user_prompt},
                     ],
-                    "max_tokens": 6000,
+                    "max_tokens": 8192,
                 }
                 if self.model_name == "deepseek-chat":
                     kwargs["temperature"] = 0.3
@@ -343,7 +343,7 @@ class AnthropicProvider:
             try:
                 response = self.client.messages.create(
                     model=self.model_name,
-                    max_tokens=6000,
+                    max_tokens=8192,
                     system=system_prompt,
                     messages=[
                         {"role": "user", "content": user_prompt}
@@ -413,7 +413,7 @@ class GroqProvider:
                         {"role": "user",   "content": user_prompt},
                     ],
                     temperature=0.3,
-                    max_tokens=6000,
+                    max_tokens=8192,
                 )
                 content = response.choices[0].message.content
                 if content:
@@ -458,7 +458,7 @@ class OpenRouterProvider:
                         {"role": "system", "content": system_prompt},
                         {"role": "user",   "content": user_prompt},
                     ],
-                    max_tokens=6000,
+                    max_tokens=8192,
                     temperature=0.3,
                 )
                 content = response.choices[0].message.content
