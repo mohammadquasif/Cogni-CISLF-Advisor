@@ -29,6 +29,14 @@
 
 ---
 
+## 🎥 Walkthrough Video
+
+<p align="center">
+  <video src="CISLF.mp4" width="100%" controls></video>
+</p>
+
+---
+
 ## 📌 Overview & Research Context
 
 **Cogni CISLF Advisor** is a state-of-the-art, interactive application designed for **technology executives** (CIOs, CTOs, CDOs, and Chief AI Officers) driving **AI transformation** and **socio-technical change**. The application translates complex academic research into a highly practical, executive-facing governance tool. 
