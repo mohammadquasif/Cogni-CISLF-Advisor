@@ -32,7 +32,7 @@
 ## 🎥 Walkthrough Video
 
 <p align="center">
-  <video src="CISLF.mp4" width="100%" controls></video>
+  <video src="https://github.com/mohammadquasif/Cogni-CISLF-Advisor/raw/main/CISLF.mp4" width="100%" controls></video>
 </p>
 
 ---
