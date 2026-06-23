@@ -32,14 +32,14 @@
 ## 🎥 Walkthrough Video
 
 <p align="center">
-  <a href="https://github.com/mohammadquasif/Cogni-CISLF-Advisor/blob/main/CISLF.mp4" target="_blank">
-    <img src="assets/dashboard_preview.png" alt="Watch Walkthrough Video" width="100%" style="border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.08);"/>
+  <a href="https://youtu.be/jTYCBFAe12g" target="_blank">
+    <img src="https://img.youtube.com/vi/jTYCBFAe12g/maxresdefault.jpg" alt="Watch Walkthrough Video" width="100%" style="border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.08);"/>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/mohammadquasif/Cogni-CISLF-Advisor/blob/main/CISLF.mp4" target="_blank">
-    <img src="https://img.shields.io/badge/▶%20Play%20Walkthrough%20Video-click%20to%20watch-red?style=for-the-badge" alt="Play Video"/>
+  <a href="https://youtu.be/jTYCBFAe12g" target="_blank">
+    <img src="https://img.shields.io/badge/▶%20Watch%20Walkthrough%20Video-on%20YouTube-red?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch on YouTube"/>
   </a>
 </p>
 
