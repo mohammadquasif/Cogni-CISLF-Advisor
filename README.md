@@ -102,13 +102,15 @@ Unlike standard, generic chatbot queries, Cogni CISLF Advisor runs a strict mult
 
 ## 🧭 Table of Contents
 1. [The CISLF Framework](#-the-cislf-framework)
-2. [Key Features & New Updates](#-key-features--new-updates)
-3. [Installation & Getting Started](#-installation--getting-started)
-4. [LLM Integration & Security Architecture](#-llm-integration--security-architecture)
-5. [How to Run Assessments](#-how-to-run-assessments)
-6. [How to Read & Interpret Results](#-how-to-read--interpret-results)
-7. [Academic Citation & Credibility](#-academic-citation--credibility)
-8. [License](#-license)
+2. [How CISLF Compares to Existing Frameworks](#how-cislf-compares-to-existing-frameworks)
+3. [Citing This Software](#citing-this-software)
+4. [Key Features & New Updates](#-key-features--new-updates)
+5. [Installation & Getting Started](#-installation--getting-started)
+6. [LLM Integration & Security Architecture](#-llm-integration--security-architecture)
+7. [How to Run Assessments](#-how-to-run-assessments)
+8. [How to Read & Interpret Results](#-how-to-read--interpret-results)
+9. [Academic Citation & Credibility](#-academic-citation--credibility)
+10. [License](#-license)
 
 ---
 
@@ -122,6 +124,29 @@ To achieve true **AI-driven business transformation**, leaders must satisfy four
 | **🔗 Pillar 2: Strategic Business-Tech Alignment** | KPI & Portfolio | Evaluates how tightly AI use cases are tied to business outcomes (KPIs), cross-functional collaboration, and ROI-driven portfolio governance. |
 | **🏗️ Pillar 3: Organisational Capability & Culture** | Talent & Literacy | Reviews workforce AI literacy, structured upskilling/reskilling programs, psychological safety for experimentation, and socio-technical adoption readiness. |
 | **⚖️ Pillar 4: Responsible AI Governance** | Ethics & Risk | Reviews frameworks for ethical AI deployment, model bias detection, regulatory compliance, risk safeguards, human oversight, and board-level risk accountability. |
+
+---
+
+## How CISLF Compares to Existing Frameworks
+
+Most existing AI maturity and governance frameworks address only part of the picture — strong on technology alignment but silent on governance, or focused on risk with no leadership dimension at all. CISLF is the first framework to integrate all four dimensions into a single model.
+
+| Framework | Leadership | Alignment | Capability | Governance |
+|---|:---:|:---:|:---:|:---:|
+| McKinsey AI Maturity Model (2024) | Partial | ✓ | ✓ | Partial |
+| Gartner AI Maturity Model (2024) | ✗ | ✓ | ✓ | Partial |
+| MIT Digital Mastery Framework | ✓ | ✓ | Partial | ✗ |
+| NIST AI Risk Management Framework | ✗ | Partial | Partial | ✓ |
+| EU Artificial Intelligence Act | ✗ | ✗ | ✗ | ✓ |
+| **CISLF Framework (this study)** | **✓** | **✓** | **✓** | **✓** |
+
+*Comparison reproduced from the CISLF framework paper (Quasif, 2026, [DOI: 10.5281/zenodo.21363658](https://doi.org/10.5281/zenodo.21363658)).*
+
+## Citing This Software
+
+If you use Cogni CISLF Advisor in your own work, please cite it using the metadata in [`CITATION.cff`](./CITATION.cff), or the DOI badge below.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21375160.svg)](https://doi.org/10.5281/zenodo.21375160)
 
 ---
 

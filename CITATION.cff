@@ -1,9 +1,19 @@
 cff-version: 1.2.0
-message: "If you use this framework or software, please cite it as below."
-title: "Cogni CISLF Advisor"
+message: "If you use this software, please cite it as below."
+title: "Cogni CISLF Advisor: An Open-Source Executive Assessment Tool for AI Transformation Readiness"
+version: 1.0.0
+doi: 10.5281/zenodo.21375160
+date-released: 2026-07-15
 authors:
-  - name: "Quasif, Mohammad"
+  - family-names: "Quasif"
+    given-names: "Mohammad"
     orcid: "https://orcid.org/0009-0003-9455-4804"
-version: 2.0.0
-date-released: 2026-06-07
-url: "https://github.com/mohammadquasif/Cogni-CISLF-Advisor"
+license: MIT
+repository-code: "https://github.com/mohammadquasif/Cogni-CISLF-Advisor"
+abstract: "An interactive Streamlit application that operationalises the Comprehensive Intelligent Strategic Leadership Framework (CISLF) for technology executives evaluating enterprise AI transformation initiatives."
+keywords:
+  - artificial intelligence
+  - enterprise governance
+  - strategic leadership
+  - AI transformation
+  - CISLF

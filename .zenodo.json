@@ -1,0 +1,29 @@
+{
+  "title": "Cogni CISLF Advisor: An Open-Source Executive Assessment Tool for AI Transformation Readiness",
+  "description": "Cogni CISLF Advisor is an interactive Streamlit application that operationalises the Comprehensive Intelligent Strategic Leadership Framework (CISLF) for technology executives evaluating enterprise AI transformation initiatives. It provides AI-assisted and rule-based assessment modes across four leadership pillars: Leadership Mindset and Vision, Strategic Business-Technology Alignment, Organisational Capability and Culture Building, and Responsible AI Governance.",
+  "creators": [
+    {
+      "name": "Quasif, Mohammad",
+      "orcid": "0009-0003-9455-4804",
+      "affiliation": "Independent Researcher"
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "artificial intelligence",
+    "enterprise governance",
+    "strategic leadership",
+    "AI transformation",
+    "decision support",
+    "CISLF"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.21363658",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-thesis"
+    }
+  ]
+}
