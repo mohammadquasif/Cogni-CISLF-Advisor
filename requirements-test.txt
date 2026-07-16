@@ -1,0 +1,10 @@
+# Minimal dependencies needed to run the unit test suite in CI.
+# Install with: pip install -r requirements-test.txt
+streamlit>=1.35.0
+google-genai>=2.0.0
+openai>=1.0.0
+anthropic>=0.20.0
+cryptography>=41.0.0
+plotly>=5.0.0
+PyMuPDF>=1.23.0
+python-dotenv>=1.0.0

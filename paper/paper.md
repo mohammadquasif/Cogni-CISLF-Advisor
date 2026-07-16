@@ -49,7 +49,18 @@ science background to interpret the output.
 
 # State of the field
 
-Unlike high-level conceptual frameworks proposed by major management consultancies (e.g., McKinsey's AI Maturity Model or Gartner's AI Maturity Model), Cogni CISLF Advisor provides an open, reproducible self-assessment utility. While safety-focused standards like the NIST AI Risk Management Framework (RMF) or ISO/IEC 42001 provide robust criteria for compliance and risk categorization, they lack mechanisms to assess executive-level leadership capabilities or workforce literacy. Cogni CISLF Advisor bridges this gap by offering a structured, quantitative, and local-first evaluation that integrates organizational capability and strategic business alignment with ethical governance.
+Unlike high-level conceptual frameworks proposed by major management
+consultancies (e.g., McKinsey's AI Maturity Model or Gartner's AI Maturity
+Model), Cogni CISLF Advisor provides an open, reproducible self-assessment
+utility. Safety-focused standards such as the NIST AI Risk Management
+Framework [@nist2023] and regulatory instruments such as the EU Artificial
+Intelligence Act [@eu2024aia] provide robust criteria for compliance and risk
+categorization, but lack mechanisms to assess executive-level leadership
+capabilities or workforce readiness. Cogni CISLF Advisor bridges this gap
+by offering a structured, quantitative, and local-first evaluation that
+integrates organisational capability and strategic business-technology
+alignment with responsible AI governance into a single leadership-facing
+decision routine.
 
 # Software design
 
@@ -66,7 +77,17 @@ underlying academic literature.
 
 # AI usage disclosure
 
-Generative AI tools (Claude, Anthropic) were used during development to assist with constructing the CSS layouts for the Streamlit UI, compiling the textual feedback templates across the twenty indicator score bands in `manual_engine.py`, implementing the coordinate-based PDF report compiler in `pdf_generator.py`, and structuring the initial test case assertions in the test suite. The author authored the core decision structures, framework mechanics, secure local credential vault implementation, and JOSS paper text. The author reviewed, edited, and validated all AI-assisted output and takes full responsibility for the accuracy and originality of the submitted software and paper.
+Generative AI tools (Anthropic Claude, accessed via an agentic coding
+assistant) were used during development as implementation aids. The author
+independently conceived the CISLF framework, designed the software
+architecture, specified all decision structures and scoring logic, and
+directed all implementation work. AI assistance was used to accelerate
+coding tasks including UI styling, template generation in
+`manual_engine.py`, the PDF report compiler in `pdf_generator.py`, and
+test scaffolding, and to help structure prose in supporting documentation
+and this paper. All AI-assisted output was reviewed, edited, fact-checked,
+and validated by the author, who takes full responsibility for the accuracy
+and originality of the submitted software and paper.
 
 # Acknowledgements
 
